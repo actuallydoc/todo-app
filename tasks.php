@@ -92,7 +92,7 @@ function deleteTask($id) {
   }
   $taskData = implode(PHP_EOL, $tasks);
   if (!empty($taskData)) {
-    $taskData .= PHP_EOL; // Add an extra new line
+    $taskData .= PHP_EOL;
   }
 
   file_put_contents($file, $taskData);
@@ -105,7 +105,7 @@ function markTask($id, $completed) {
     $taskData = explode("|", $task);
     $taskId = $taskData[0];
     if ($taskId == $id) {
-      $taskData[2] = $completed; // Update completed state
+      $taskData[2] = $completed;
     }
     $updatedTasks[] = implode("|", $taskData);
   }
