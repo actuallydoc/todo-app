@@ -1,5 +1,12 @@
+//21 je max char size za input field drugače se ne vidi vse. pokaži tooltip za več info
+
+
 
 $(document).ready(function() {
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+
+  })
 
   function refreshCount () {
     var count = $("#task-list #task").length;
@@ -19,7 +26,7 @@ $(document).ready(function() {
         refreshCount();
       },
       error: function (xhr, status, error) {
-        console.log(xhr.responseText); // Log any errors
+        console.log(xhr.responseText);
       }
     });
   }
@@ -31,7 +38,6 @@ $(document).ready(function() {
       method: "GET",
       success: function(data) {
         $("#task-list").html(data);
-        console.log(data)
         refreshCount();
       }
     });
@@ -39,10 +45,8 @@ $(document).ready(function() {
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
   $('#dobrodosli').toast('show')
-
-  // Call fetchTasks on page load
   fetchTasks();
-  // Add task
+  // Dodaj opravilo
   $("#task-form").on("submit", function(event) {
     event.preventDefault();
     var taskInput = $("#task-input");
@@ -58,10 +62,9 @@ $(document).ready(function() {
     });
   });
 
-  // Delete task
+  // Izbrisi opravilo
   $("#task-list").on("click", ".delete-task", function() {
     var taskId = $(this).data("id");
-    console.log(taskId)
     $.ajax({
       url: "tasks.php",
       method: "DELETE",
@@ -69,19 +72,17 @@ $(document).ready(function() {
       success: function() {
         $('#izbrisi ').toast('show')
         fetchTasks();
+        refreshCount();
       }
     });
   });
   $(document).ready(function() {
     // ...
 
-    // Toggle completed state
+    // Posodobi opravilo
     $("#task-list").on("change", "input[type='checkbox']", function () {
       var taskId = $(this).data('id');
       var completed = this.checked ? 1 : 0;
-      console.log(taskId)
-      console.log(completed)
-      console.log(this.checked)
       updateTaskCompletion(taskId, completed);
       fetchTasks();
       refreshCount();
