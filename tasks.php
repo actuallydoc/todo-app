@@ -60,8 +60,7 @@ function readTasks() {
         }
     }
 }
-// Add a new task
-// Add a new task
+
 function addTask($task) {
   global $file;
   $taskId = microtime(true);
@@ -73,12 +72,11 @@ function addTask($task) {
     fclose($fileHandle);
   }
 
-  // Open the file in append mode and write the task
   $fileHandle = fopen($file, 'a');
   fwrite($fileHandle, $taskData);
   fclose($fileHandle);
 }
-// Delete a task
+
 function deleteTask($id) {
   global $file;
   $tasks = file($file, FILE_IGNORE_NEW_LINES);
